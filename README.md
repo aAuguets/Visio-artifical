@@ -1,4 +1,4 @@
 Projecte-final
 ==============
 
-Repositori on es trobarà el projecte final
+**Contribuïdors:** Adrià Auguets, Felipe Arango i Jordi Masip
