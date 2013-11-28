@@ -3,7 +3,7 @@
 
 # AUTOR: Adrià Auguets
 
-import img, Image
+from PIL import Image
 
 def read_rgb(nomf):
     """
