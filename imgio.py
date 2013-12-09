@@ -13,10 +13,10 @@ def read_rgb(nomf):
     """
     image = Image.open(nomf)
     pix = image.load()
-    X = image.size[0]
-    Y = image.size[1]
+    X, Y = image.size[0], image.size[1]
     data = [[pix[x,y] for x in range(X)] for y in range(Y)]    
-    return img.img(data, 'RGB')
+    #return img.img(data, 'RGB')
+    return data
 
 
 def read_bn(nomf):
@@ -29,10 +29,11 @@ def read_bn(nomf):
     X = image.size[0]
     Y = image.size[1]
     data = [[pix[x,y] for x in range(X)] for y in range(Y)]
-    return img.img(data, '1')
+    #return im.img(data, '1')
+    return data
 
 
-def show(i):
+def show(img): #i
     """
     Donada una imatge, la mostra en un visualitzador a la terminal. 
     Principalment serveix per a depurar el projecte.
@@ -42,7 +43,7 @@ def show(i):
     image.show()
 
 
-def save(i,nomf):
+def save(img,nomf): #i
     """
     Donada una imatge i un nom de fitxer, crea el fitxer imatge a
     partir de la matriu.
