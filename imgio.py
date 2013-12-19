@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# AUTOR: Adrià Auguets
+# AUTOR: Adrià Auguets.
 #Importar módul img
 
 from PIL import Image
