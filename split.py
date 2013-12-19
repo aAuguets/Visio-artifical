@@ -13,6 +13,8 @@ def split digit(img):
 	n_rows = len(img)
 	column_pos = -1
 	i, j = 0, 0
+	nova_imatge = []
+	img_restant = []
 	for row in img:
 		i += 1
 		is_vertical = True
@@ -20,4 +22,15 @@ def split digit(img):
 			j += 1
 			if value == BLACK:
 				is_vertical *= False
-		column_pos = (i, j)
+		column_pos = i
+		
+	i, j = 0, 0
+	for row in img:
+		i += 1
+		for bit in img[row]:
+			j += 1
+			if j <= column_pos:
+				nova_imatge += [bit]
+			else:
+				img_restant += [bit]
+	return (nova_imatge, img_restant)
