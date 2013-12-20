@@ -29,7 +29,7 @@ def luminance_img(img):
 	"""
 	luminance = []
 	image = img[1:][0]
-	for fila in imgae:
+	for fila in image:
 		nova_fila = []
 		for colors in fila:
 			nova_fila += [rgb_to_lum(colors)]
