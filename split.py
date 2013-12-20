@@ -9,9 +9,7 @@ def split_digit(img):
 	imatge amb el dígit de més a l’esquerra i R és la resta de la imatge. La imatge corresponent al dígit extret D es retorna
 	convenientment retallada en la direcció horitzontal. La resta R esdevé una imatge nul.la quan s’han extret tots els dígits.
 	"""
-	width = len(img)
-	start_white = -1
-	end_white = width + 1
+	end_white = -1
 	i = 0
 	for row in img:
 		i += 1
@@ -23,27 +21,21 @@ def split_digit(img):
 				is_vertical = False
 				break
 		else:
-			if start_white == -1:
-				start_white = i
-			elif end_white == width + 1:
+			if end_white == -1:
 				end_white = i
-			
 	
-	print "La primera columna vertical està a la pos:", columns_pos
+	print "La primera columna vertical està a la pos:", end_white
 	
 	# Si no s'ha trobat cap columna vertical "blanca"...
-	if column_pos == -1:
+	if end_white == -1:
 		return (img, [])
 		
-	i, j = 0, 0
-	nova_imatge = []
-	img_restant = []
+	i = 0
+	img_char, img_restant = [], []
 	for row in img:
+		if i > end_white:
+			img_restant += [row[end_white:]]
+		else:
+			img_char += [row[:end_white]]
 		i += 1
-		for bit in img[row]:
-			j += 1
-			if j <= start_white:
-				nova_imatge += [bit]
-			elif j 
-				img_restant += [bit]
-	return (nova_imatge, img_restant)
+	return (img_char, img_restant)
