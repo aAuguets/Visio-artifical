@@ -18,8 +18,7 @@ def rgb_to_lum(pixel):
 	for element in pixel:
 		suma += element
 	
-	lux = suma/3
-	return lux
+	return suma/3
 # rgb_to_lum((255,255,255))
 
 def luminance_img(img): 
@@ -28,17 +27,16 @@ def luminance_img(img):
 	>>> luminance img((’RGB’, [[(255, 255, 255), (255, 255, 255), (255, 255, 255)], [(255, 255, 255),(255, 255, 255), (255, 255, 255)], [(255, 255, 255), (255, 255, 255), (255, 255, 255)]])) 
 	(’L’, [[255, 255, 255], [255, 255, 255], [255, 255, 255]])
 	"""
-	luminance=[]
-	for fila in img:
+	luminance = []
+	image = img[1:][0]
+	for fila in imgae:
 		nova_fila = []
-		for bits in fila:
-			nova_fila += [rgb_to_lum(bits)]
-		luminance+=[nova_fila]
-	print luminance
+		for colors in fila:
+			nova_fila += [rgb_to_lum(colors)]
+		luminance += [nova_fila]
+	return ("L", luminance)
 
-# luminance_img([[(56,250,180),(134,14,133),(24,25,211)],[(24,255,234),(213,332,333),(411,433,444)],[(57,5776,57),(656,654,62),(712,7333,74)]])
+#luminance_img((("RGB"), [[(56,250,180),(134,14,133),(24,25,211)],[(24,255,234),(213,332,333),(411,433,444)],[(57,5776,57),(656,654,62),(712,7333,74)]]))
 
 def histogram(img):
-	
-
-
+	pass
