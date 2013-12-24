@@ -5,6 +5,7 @@
 
 from utiles import *
 from imgio import *
+from imgio import *
 
 def load_patterns(prefix):
 	patrons = []
@@ -15,6 +16,7 @@ def load_patterns(prefix):
 	return patrons
 
 def match(img, patlst):
+	img_height = len(img)
 	for pattern in patlst:
-		pass
+		#if img_height != 
 	return []

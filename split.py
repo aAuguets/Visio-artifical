@@ -3,6 +3,8 @@
 
 # AUTOR: Jordi Masip
 
+from utiles import *
+
 def split_digit(img):
 	"""
 	Aquesta funció rebrà una imatge img en blanc i negre retallada verticalment i retorna una tupla (D,R) en la que D és una
@@ -24,7 +26,7 @@ def split_digit(img):
 			if end_white == -1:
 				end_white = i
 	
-	print "La primera columna vertical està a la pos:", end_white
+	debug("La primera columna vertical està a la pos:", end_white)
 	
 	# Si no s'ha trobat cap columna vertical "blanca"...
 	if end_white == -1:
