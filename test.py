@@ -8,8 +8,8 @@ for line in img:
 	new_line = []
 	for val in line:
 		if val == 255:
-			val = "▓"
+			val = " "
 		else:
-			val = "░"
+			val = "▓"
 		new_line += [val]
 	print "".join(new_line)
