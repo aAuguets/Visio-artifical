@@ -36,7 +36,56 @@ def luminance_img(img):
 		luminance += [nova_fila]
 	return ("L", luminance)
 
-#luminance_img((("RGB"), [[(56,250,180),(134,14,133),(24,25,211)],[(24,255,234),(213,332,333),(411,433,444)],[(57,5776,57),(656,654,62),(712,7333,74)]]))
+def histogram(i):
+	histograma = 256*[0]
+	img = i[1]
+	for fila in img:
+		print fila
+		for pixel in fila:
+			histograma[pixel] += 1
+	return histograma
 
-def histogram(img):
-	pass
+def get_threshold(histograma,total):
+    """
+    No funciona
+    """
+	sum = 0
+	for i in range(1, 256):
+		sum += i*histograma[i]
+	sumB = 0
+	wB = 0
+ 	wF =0
+	mB = 0
+	mF = 0
+	max = 0
+	between = 0
+	threshold = 0
+	for i in range(256):
+		wB += histograma[i]
+		if wB == 0:
+			continue
+		wF = total - wB
+		if wF == 0:
+			break
+		sumB += i * histograma[i]
+		mB = sumB / wB
+		mF = (sum - sumB) / wF
+		between = wB * wF * (mB - mF)**2
+		if between > max:
+			max = between
+			threshold = i
+	print wB/51.
+	print mB/51., wF/51., mF/51.
+	return threshold
+
+def to255(hist):
+    """
+    Mòdul addiciional
+    """
+	n_hist=256*[0]
+	for i in range(6):
+		n_hist[i*51]=hist[i]
+	return n_hist
+
+#print "histo", to255([8,7,2,6,9,4])
+#print get_threshold(to255([8,7,2,6,9,4]), 36)
