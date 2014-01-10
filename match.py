@@ -4,8 +4,8 @@
 # AUTOR: Jordi Masip
 
 from utiles import *
-from imgio import *
-from imgio import *
+from img import *
+from tranf import *
 
 def load_patterns(prefix):
 	patrons = []
@@ -16,7 +16,10 @@ def load_patterns(prefix):
 	return patrons
 
 def match(img, patlst):
-	img_height = len(img)
-	for pattern in patlst:
-		#if img_height != 
+	img_size = (get_w(img), get_h(img))
+	for i, pattern in enumerate(patlst):
+		pattern = scale(pattern, img_size[1])
+		patter_size = (get_w(pattern), get_h(pattern))
+		if img_size[0] != pattern[0]:
+			for each in 
 	return []
