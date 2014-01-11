@@ -1,7 +1,7 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# AUTOR: Adrià Auguets
+# DEV: Adrià Auguets
 
 def rgb_to_bn(img):
 	"""
@@ -53,15 +53,13 @@ def get_threshold(histograma, total):
 	>>> get_threshold([8,7,2,6,9,4], 36)
 	3
 	"""
-	profunditat = range(len(histograma))
-
-	suma = 0.0
-	for i in for_matrix:
+	profunditat = len(histograma)
+	suma, sumB, wB = 0, 0.0, 0.0
+	
+	for i in range(profunditat):
 		suma += i * histograma[i]
 	
-	sumB = 0.0
-	wB = 0.0
-	for i in for_matrix:
+	for i in range(profunditat):
 		wB += histograma[i]
 		if wB == 0:
 			continue
