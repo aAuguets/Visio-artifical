@@ -95,9 +95,17 @@ def split_digit(img):
 	convenientment retallada en la direcció horitzontal. La resta R esdevé una imatge nul.la quan s’han extret tots els dígits.
 	###>>> split_digit([[255,255,255, 0],[255,255,255, 255]])
 	"""
-	img = htrim(img)
-	img = vtrim(img)
+	# S'escapça la imatge
+	img = vtrim(htrim(img))
+
+	# S'obté la posició de la primera columna on tot és blanc (aquesta serà la cordenada on acaba el primer caràcter)
 	pos_end_first_char = getPositionOfFirstColumnOfColor(WHITE, img)
+
+	# Es fa un slice del primer caràcter, des de 0->pos_end_first_char
 	img_char = image_slice_width(img, 0, pos_end_first_char)
-	img_restant = image_slice_width(img, pos_end_first_char, len(img))
+
+	# Es fa un slice de la resta de caràcters des de pos_end_first_char->final
+	img_restant = image_slice_width(img, pos_end_first_char, len(img) - 1)
+
+	# Es retorna una tupla (img_char, img_restant)
 	return (img_char, vtrim(img_restant))
