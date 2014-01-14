@@ -8,6 +8,8 @@ from utiles import *
 def transpose(img):
 	"""
 	Retorna una matriu amb les files com a columnes i les columnes com a files
+	>>> transpose([[255,255,255, 255],[255,255,255, 255],[255,255,255, 255],[0,255,255, 255]])
+	[[255,255,255,0],[255,255,255,255],[255,255,255,255],[255,255,255,255]]
 	"""
 	# Crea tantes files a "transposed_img" com columnes hi ha a "img":
 	transposed_img = [[] for x in range(len(img[0]))]
@@ -20,23 +22,67 @@ def transpose(img):
 
 	return transposed_img
 
-def getPositionOfLastRowOfColor(color, img):
+def image_slice_width(image, f, to):
 	"""
-	Retorna la posició de la última fila de la imatge que és tota del color "color" abans de trobar una d'un altre color (o arribar al final)
-	>>> getPositionOfLastRowOfColor(0, [[255,255,255, 255],[255,255,255, 255],[255,255,255, 255],[0,255,255, 255]])
-	2
+	Retorna la imatge entre la fila de la posició "f" fins la posició "to" (exclosa)
+	"""
+	sliced_image = []
+	for row in image:
+		sliced_image += row[f:to]
+	return sliced_image
+
+def getPositionOfFirstRowOfColor(color, img):
+	"""
+	Retorna la posició de la primera fila de la imatge que és tota del color "color"
+	>>> getPositionOfFirstRowOfColor(0, [[255,255,255, 255],[255,255,255, 255],[255,255,255, 255],[0,255,255, 255]])
+	-1
+	>>> getPositionOfFirstRowOfColor(255, [[255,255,255, 255],[255,255,255, 255],[255,255,255, 255],[0,255,255, 255]])
+	0
+	>>> getPositionOfFirstRowOfColor(255, [[0,255,255, 255],[255,255,255, 255],[255,255,255, 255],[0,255,255, 255]])
+	1
 	"""
 	position = 0
 	for row in img:
+		all_the_same = True
+		for pixel in row:
+			if pixel != color:
+				all_the_same = False
+				break
+		if all_the_same:
+			return position
+		position += 1
+	return -1
+
+def getPositionOfFirstColumnOfColor(color, img):
+	"""
+	Retorna la posició de la primera columna de la imatge que és tota del color "color"
+	>>> getPositionOfFirstColumnOfColor(0, [[255,255,255, 255],[255,255,255, 255],[255,255,255, 255],[0,255,255, 255]])
+	-1
+	>>> getPositionOfFirstColumnOfColor(0, [[255,0,255, 255],[255,0,255, 255],[0,0,0,0],[0,0,255, 255]])
+	1
+	"""
+	return getPositionOfFirstRowOfColor(color, transpose(img))
+
+def getPositionOfFirstRowOfColorDiff(color, img):
+	"""
+	Retorna la posició de la primera fila de la imatge que és tota d'un color diferent de "color"
+	>>> getPositionOfFirstRowOfColorDiff(0, [[255,255,255, 255],[255,255,255, 255],[0,255,255, 255],[0,0,0,0]])
+	1
+	"""
+	position = 0
+	for row in img:
+		all_the_same = True
 		for pixel in row:
 			if pixel == color:
-				return position - 1
+				all_the_same = False
+		if not all_the_same:
+			return position -1
 		position += 1
-	return position
+	return -1
 
-def getPositionOfLastColumnOfColor(color, img):
+def getPositionOfFirstColumnOfColorDiff(color, img):
 	"""
-	Retorna la posició de la última columna de la imatge que és tota del color "color" abans de trobar una d'un altre color (o arribar al final)
+	Retorna la posició de la primera columna de la imatge que és tota d'un color diferent de "color"
 	>>> getPositionOfLastColumnOfColor(0, [[255,255,255, 255],[255,255,255, 255],[255,255,255, 255],[0,255,255, 255]])
 	-1
 	"""
@@ -49,7 +95,9 @@ def split_digit(img):
 	convenientment retallada en la direcció horitzontal. La resta R esdevé una imatge nul.la quan s’han extret tots els dígits.
 	###>>> split_digit([[255,255,255, 0],[255,255,255, 255]])
 	"""
-	debug("La última columna tota blanca està a la pos: " + str(end_white))
+	img = htrim(img)
+	getPositionOfLastRowOfColor
+
 	# Si no s'ha trobat cap columna vertical "blanca"...
 	if end_white == -1:
 		return (img, [])
