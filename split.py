@@ -65,17 +65,18 @@ def getPositionOfFirstColumnOfColor(color, img):
 def getPositionOfFirstRowOfColorDiff(color, img):
 	"""
 	Retorna la posició de la primera fila de la imatge que és tota d'un color diferent de "color"
-	>>> getPositionOfFirstRowOfColorDiff(0, [[255,255,255, 255],[255,255,255, 255],[0,255,255, 255],[0,0,0,0]])
-	3
+	>>> getPositionOfFirstRowOfColorDiff(0, [[0,0,0,0], [255,255,255,255],[255,255,255,255],[0,255,255, 255],[0,0,0,0]])
+	1
+	>>> getPositionOfFirstRowOfColorDiff(0, [[0,0,0,0], [0,255,255,255],[255,255,255,255],[0,255,255, 255],[0,0,0,0]])
+	2
 	"""
 	position = 0
 	for row in img:
 		all_the_same = True
 		for pixel in row:
-			if pixel == color:
-				all_the_same = False
-		if not all_the_same:
-			return position -1
+			all_the_same *= pixel != color
+		if all_the_same:
+			return position 
 		position += 1
 	return -1
 
@@ -85,7 +86,7 @@ def getPositionOfFirstColumnOfColorDiff(color, img):
 	>>> getPositionOfLastColumnOfColor(0, [[255,255,255, 255],[255,255,255, 255],[255,255,255, 255],[0,255,255, 255]])
 	-1
 	"""
-	return getPositionOfLastRowOfColor(color, transpose(img))
+	return getPositionOfFirstRowOfColor(color, transpose(img))
 
 def split_digit(img):
 	"""
@@ -110,5 +111,3 @@ def split_digit(img):
 			img_char += [row[:end_white]]
 		i += 1
 	return (img_char, img_restant)
-
-print getPositionOfFirstRowOfColorDiff(0, [[255,255,255, 255],[255,255,255, 255],[0,255,255, 255],[0,0,0,0]])
