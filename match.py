@@ -3,7 +3,7 @@
 
 # DEV: Jordi Masip
 
-import imgio, img, tranf
+import imgio, img, tranf, split
 from utiles import *
 
 def compare_image(img, pttrn):
@@ -17,15 +17,6 @@ def compare_image(img, pttrn):
 			if img[i][j] == pttrn[i][j]:
 				coincidence += 1
 	return coincidence / total_pixels
-
-def image_slice_with(image, f, to):
-	"""
-	Retorna la imatge
-	"""
-	sliced_image = []
-	for row in image:
-		sliced_image += row[f:to+1]
-	return sliced_image
 
 def load_patterns(prefix):
 	"""
@@ -53,7 +44,7 @@ def match(img, patlst):
 		patter_size = (get_w(pattern), get_h(pattern))
 
 		for position in range(img_size[0] - patter_size[0] + 1):
-			coincidence = compare_image(image_slice_with(img, position, img_size[0]), pattern)
+			coincidence = compare_image(split.image_slice_width(img, position, img_size[0]+1), pattern)
 			if coincidence >= best_match[1]:
 				best_match = (i, coincidence)
 	debug("El best_match es " + str(best_match))
