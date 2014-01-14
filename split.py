@@ -9,12 +9,11 @@ def transpose(img):
 	"""
 	Retorna una matriu amb les files com a columnes i les columnes com a files
 	"""
-	# Crea tantes files a transposed_img com columnes hi ha a img:
+	# Crea tantes files a "transposed_img" com columnes hi ha a "img":
 	transposed_img = [[] for x in range(len(img[0]))]
 
 	for row in img:
 		i = 0
-		#transposed_img[i] = [column for i, column in enumerate(row)]
 		for column in row:
 			transposed_img[i] += [column]
 			i += 1
@@ -24,6 +23,8 @@ def transpose(img):
 def getPositionOfLastRowOfColor(color, img):
 	"""
 	Retorna la posició de la última fila de la imatge que és tota del color "color" abans de trobar una d'un altre color (o arribar al final)
+	>>> getPositionOfLastRowOfColor(0, [[255,255,255, 255],[255,255,255, 255],[255,255,255, 255],[0,255,255, 255]])
+	2
 	"""
 	position = 0
 	for row in img:
@@ -36,6 +37,8 @@ def getPositionOfLastRowOfColor(color, img):
 def getPositionOfLastColumnOfColor(color, img):
 	"""
 	Retorna la posició de la última columna de la imatge que és tota del color "color" abans de trobar una d'un altre color (o arribar al final)
+	>>> getPositionOfLastColumnOfColor(0, [[255,255,255, 255],[255,255,255, 255],[255,255,255, 255],[0,255,255, 255]])
+	-1
 	"""
 	return getPositionOfLastRowOfColor(color, transpose(img))
 
@@ -60,7 +63,3 @@ def split_digit(img):
 			img_char += [row[:end_white]]
 		i += 1
 	return (img_char, img_restant)
-
-
-print getPositionOfLastRowOfColor(0, [[255,255,255, 255],[255,255,255, 255],[255,255,255, 255],[0,255,255, 255]])
-#print transpose([[255,255,255, 0],[255,255,255, 255]])
