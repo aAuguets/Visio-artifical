@@ -72,7 +72,7 @@ def getPositionOfFirstColumnOfColor(color, img):
 
 def getPositionOfFirstRowOfColorDiff(color, img):
 	"""
-	Retorna la posició de la primera fila de la imatge que és tota d'un color diferent de "color"
+	Retorna la posició de la primera fila de la imatge on algun dels valors es diferent de "color"
 	>>> getPositionOfFirstRowOfColorDiff(0, [[0,0,0,0], [255,255,255,255],[255,255,255,255],[0,255,255, 255],[0,0,0,0]])
 	1
 	>>> getPositionOfFirstRowOfColorDiff(0, [[0,0,0,0], [0,255,255,255],[255,255,255,255],[0,255,255, 255],[0,0,0,0]])
@@ -80,9 +80,11 @@ def getPositionOfFirstRowOfColorDiff(color, img):
 	"""
 	position = 0
 	for row in img:
-		all_the_same = True
+		all_the_same = False
 		for pixel in row:
-			all_the_same *= pixel != color
+			if pixel != color:
+				all_the_same = True
+				break
 		if all_the_same:
 			return position 
 		position += 1
@@ -90,7 +92,7 @@ def getPositionOfFirstRowOfColorDiff(color, img):
 
 def getPositionOfFirstColumnOfColorDiff(color, img):
 	"""
-	Retorna la posició de la primera columna de la imatge que és tota d'un color diferent de "color"
+	Retorna la posició de la primera columna de la imatge on algun dels valors es diferent de "color"
 	>>> getPositionOfFirstColumnOfColorDiff(0, [[0,0,255,0], [255,255,255,255],[255,255,255,255],[0,255,255, 255],[0,0,255,0]])
 	2
 	"""
@@ -117,3 +119,5 @@ def split_digit(img):
 
 	# Es retorna una tupla (img_char, img_restant)
 	return (img_char, vtrim(img_restant))
+
+print getPositionOfFirstRowOfColorDiff(0, [[0,0,0,0], [0,255,255,255],[255,255,255,255],[0,255,255, 255],[0,0,0,0]])

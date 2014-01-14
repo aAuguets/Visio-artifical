@@ -54,7 +54,7 @@ def get_threshold(histograma, total):
  	wF =0
 	mB = 0
 	mF = 0
-	max = 0
+	maxim = 0
 	between = 0
 	threshold = 0
 	for i in range(256):
@@ -68,8 +68,8 @@ def get_threshold(histograma, total):
 		mB = sumB / wB
 		mF = (sum - sumB) / wF
 		between = wB * wF * (mB - mF)**2
-		if between > max:
-			max = between
+		if between > maxim:
+			maxim = between
 			threshold = i
 	print wB/51.
 	print mB/51., wF/51., mF/51.
