@@ -96,18 +96,8 @@ def split_digit(img):
 	###>>> split_digit([[255,255,255, 0],[255,255,255, 255]])
 	"""
 	img = htrim(img)
-	getPo
-
-	# Si no s'ha trobat cap columna vertical "blanca"...
-	if end_white == -1:
-		return (img, [])
-		
-	i = 0
-	img_char, img_restant = [], []
-	for row in img:
-		if i > end_white:
-			img_restant += [row[end_white:]]
-		else:
-			img_char += [row[:end_white]]
-		i += 1
-	return (img_char, img_restant)
+	img = vtrim(img)
+	pos_end_first_char = getPositionOfFirstColumnOfColor(WHITE, img)
+	img_char = image_slice_width(img, 0, pos_end_first_char)
+	img_restant = image_slice_width(img, pos_end_first_char, len(img))
+	return (img_char, vtrim(img_restant))
