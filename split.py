@@ -8,6 +8,8 @@ from utiles import *
 def mirror_effect(img):
 	"""
 	Retorna la imatge girada 180º sobre l'eix Y
+	>>> mirror_effect([[255,255,255, 0],[0,255,255, 255]])
+	[[0, 255, 255, 255], [255, 255, 255, 0]]
 	"""
 	return [row[::-1] for row in img]
 
@@ -115,6 +117,3 @@ def split_digit(img):
 
 	# Es retorna una tupla (img_char, img_restant)
 	return (img_char, vtrim(img_restant))
-
-print [[255,255,255, 0],[255,255,255, 255]]
-print mirror_efect([[255,255,255, 0],[255,255,255, 255]])
