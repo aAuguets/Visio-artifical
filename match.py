@@ -31,6 +31,7 @@ def load_patterns(prefix):
 	"""
 	Retorna una llista de tuples on el primer element és el valor que representa el patró i el segon valor és el patró
 	"""
+	debug("Recordar canviar a load_patterns el range(10)")
 	return [(num, imgio.read_bn(str(prefix) + "_" + str(num) + ".jpeg")) for num in [4]] # range(10)
 
 def match(img, patlst):
