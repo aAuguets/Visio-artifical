@@ -1,13 +1,10 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# DEV: Adrià Auguets
+# AUTOR: Adrià Auguets
 
 def rgb_to_bn(img):
-	"""
-	Retorna una imatge de la mateixa dimensio ́ de img que cont ́e la mateixa escena però convertida a blanc i negre.
-	"""
-	pass
+	"""Retorna una imatge de la mateixa dimensio ́ de img que cont ́e la mateixa escena per`o convertida a blanc i negre."""
 
 def rgb_to_lum(pixel):
 	"""
@@ -22,12 +19,13 @@ def rgb_to_lum(pixel):
 		suma += element
 	
 	return suma/3
+# rgb_to_lum((255,255,255))
 
 def luminance_img(img): 
 	"""
 	Transforms a RGB image to a L image using luminance
-	>>> luminance img(('RGB', [[(255, 255, 255), (255, 255, 255), (255, 255, 255)], [(255, 255, 255),(255, 255, 255), (255, 255, 255)], [(255, 255, 255), (255, 255, 255), (255, 255, 255)]])) 
-	('L', [[255, 255, 255], [255, 255, 255], [255, 255, 255]])
+	>>> luminance img((’RGB’, [[(255, 255, 255), (255, 255, 255), (255, 255, 255)], [(255, 255, 255),(255, 255, 255), (255, 255, 255)], [(255, 255, 255), (255, 255, 255), (255, 255, 255)]])) 
+	(’L’, [[255, 255, 255], [255, 255, 255], [255, 255, 255]])
 	"""
 	luminance = []
 	image = img[1:][0]
@@ -48,18 +46,18 @@ def histogram(i):
 	return histograma
 
 def get_threshold(histograma, total):
-	"""
-	Retorna el llindar de l'Otsu a partir d'un histograma
-	>>> get_threshold([8,7,2,6,9,4], 36)
-	3
-	"""
-	profunditat = len(histograma)
-	suma, sumB, wB = 0, 0.0, 0.0
-	
-	for i in range(profunditat):
-		suma += i * histograma[i]
-	
-	for i in range(profunditat):
+	suma = 0
+	for i in range(1, 256):
+		suma += i*histograma[i]
+	sumB = 0
+	wB = 0
+ 	wF =0
+	mB = 0
+	mF = 0
+	max = 0
+	between = 0
+	threshold = 0
+	for i in range(256):
 		wB += histograma[i]
 		if wB == 0:
 			continue
@@ -68,9 +66,20 @@ def get_threshold(histograma, total):
 			break
 		sumB += i * histograma[i]
 		mB = sumB / wB
-		mF = (suma - sumB) / wF
+		mF = (sum - sumB) / wF
 		between = wB * wF * (mB - mF)**2
-		if between > maxim:
-			maxim = between
+		if between > max:
+			max = between
 			threshold = i
+	print wB/51.
+	print mB/51., wF/51., mF/51.
 	return threshold
+
+def to255(hist):
+	n_hist=256*[0]
+	for i in range(6):
+		n_hist[i*51]=hist[i]
+	return n_hist
+
+#print "histo", to255([8,7,2,6,9,4])
+#print get_threshold(to255([8,7,2,6,9,4]), 36)

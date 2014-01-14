@@ -54,7 +54,7 @@ def subimg(img, ow, oh, w, h):
 	"""
 	imatge=img[1]
 	imatge=imatge[oh:h+1][ow:w+1]
-	print imatge
+	return imatge
 
 def img(m, model='DISCOVER'):
 	"""

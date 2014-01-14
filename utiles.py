@@ -18,7 +18,7 @@ def show_console(img):
 			if isinstance(val, tuple):
 				val = (val[0] + val[1] + val[2])/3
 			if val >= 128:
-				val = " "
+				val = "#"
 			else:
 				val = "▓"
 			new_line += [val]

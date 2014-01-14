@@ -13,20 +13,25 @@ def split_digit(img):
 	"""
 	end_white = -1
 	i = 0
-	for row in img:
+	j = 0
+	for column in zip(img):
 		i += 1
 		is_vertical = True
-		# Per element de la columna...
-		for value in img[column][row]:
+		# Per cada element de la columna...
+		for value in column:
+			print i,":",j
+			j+=1
 			# Si troba un caràcter zero, salta a la següent columna
-			if value == 0:
+			if value == BLACK:
+				print "Black!!!"
 				is_vertical = False
 				break
-		else:
-			if end_white == -1:
-				end_white = i
+	else:
+		if end_white == -1:
+			debug("White -1")
+			end_white = i
 	
-	debug("La primera columna vertical està a la pos:", end_white)
+	debug("La primera columna de color blanc està a la pos: " + str(end_white))
 	
 	# Si no s'ha trobat cap columna vertical "blanca"...
 	if end_white == -1:
