@@ -83,10 +83,10 @@ def getPositionOfFirstRowOfColorDiff(color, img):
 def getPositionOfFirstColumnOfColorDiff(color, img):
 	"""
 	Retorna la posició de la primera columna de la imatge que és tota d'un color diferent de "color"
-	>>> getPositionOfLastColumnOfColor(0, [[255,255,255, 255],[255,255,255, 255],[255,255,255, 255],[0,255,255, 255]])
-	-1
+	>>> getPositionOfFirstColumnOfColorDiff(0, [[0,0,255,0], [255,255,255,255],[255,255,255,255],[0,255,255, 255],[0,0,255,0]])
+	2
 	"""
-	return getPositionOfFirstRowOfColor(color, transpose(img))
+	return getPositionOfFirstRowOfColorDiff(color, transpose(img))
 
 def split_digit(img):
 	"""
@@ -96,7 +96,7 @@ def split_digit(img):
 	###>>> split_digit([[255,255,255, 0],[255,255,255, 255]])
 	"""
 	img = htrim(img)
-	getPositionOfLastRowOfColor
+	getPo
 
 	# Si no s'ha trobat cap columna vertical "blanca"...
 	if end_white == -1:
