@@ -1,9 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# DEV: Adrià Auguets.
-#Importar módul img
+# DEV: Adrià Auguets i Felipe Arango
 
+from img import *
 from PIL import Image
 
 def read_rgb(nomf):
@@ -28,26 +28,25 @@ def read_bn(nomf):
     pix = image.load()
     X = image.size[0]
     Y = image.size[1]
-    data = [[pix[x,y] for x in range(X)] for y in range(Y)]
-    #return im.img(data, '1')
-    return data
+    return [[pix[x,y] for x in range(X)] for y in range(Y)]
 
-
-def show(img): #i
+def show(i):
     """
-    Donada una imatge, la mostra en un visualitzador a la terminal. 
-    Principalment serveix per a depurar el projecte.
+    Donada una imatge, la mostra en un visualitzador. Principalment serveix per a depurar el projecte.
     """
-    image = Image.new(img.format(i),(img.get_w(i),img.get_h(i)))
-    image.putdata([pixel for F in img.matrix(i) for pixel in F])
+    print get_w(i)
+    image = Image.new(format(i),(get_w(i),get_h(i)))
+    image.putdata([pixel for F in matrix(i) for pixel in F])
     image.show()
 
-
-def save(img,nomf): #i
+def save(img,nomf):
     """
     Donada una imatge i un nom de fitxer, crea el fitxer imatge a
     partir de la matriu.
     """
-    image = Image.new(img.format(i),(img.get_w(i),img.get_h(i)))
-    image.putdata([pixel for F in img.matrix(i) for pixel in F])
+    image = Image.new(format(i),(get_w(i),get_h(i)))
+    image.putdata([pixel for F in matrix(i) for pixel in F])
     image.save(nomf)
+
+#showl=("RGB", [[(0, 0, 0), (255, 255, 255), (255, 0, 0)], [(255, 255, 255), (0, 255, 0), (255, 255, 255)], [(0, 0, 255), (255, 255, 255), (255, 255, 255)]])
+#show(showl)

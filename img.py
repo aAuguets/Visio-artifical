@@ -1,8 +1,27 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-from PIL import Image, ImageColor, ImageDraw
-from imgio import *
+# DEV: Felipe Arango
+
+def null():
+	"""
+	Retorna imatge nul·la
+	>>> null()
+	('NULL', None)
+	"""
+	return ('NULL', None)
+
+def is_null(img):
+	"""
+	Es img una imatge nul·la?
+	>>> is_null(('NULL', None))
+	True
+	('NULL', None)
+	"""
+	if img==('NULL',None):
+		return True
+	else:
+		return False
 
 def format(im):
 	"""
@@ -29,16 +48,36 @@ def white_rgb(w, h):
 	return ("RGB", img)
 
 def white_grey(w, h):
+	"""
+	Retorna imatge wxh en format escala de grissos
+	>>> white rgb(3,3)
+	("RGB", [[(255, 255, 255), (255, 255, 255), (255, 255, 255)], [(255, 255, 255), (255, 255, 255),
+	(255, 255, 255)], [(255, 255, 255), (255, 255, 255), (255, 255, 255)]])
+	"""
 	fila = [255 for i in range(w)]
 	img = [fila for i in range(h)]
 	return ("L", img)
 
 def white_bn(w, h):
+	"""
+	Retorna imatge wxh en format blanc i negre 
+	>>> white bn(3,3)
+	("1", [[255, 255, 255], [255, 255, 255], [255, 255, 255]])
+	>>> white bn(2,3)
+	("1", [[255, 255], [255, 255], [255, 255]])
+	"""
 	fila = [255 for i in range(w)]
 	img = [fila for i in range(h)]
 	return ("1", img)
 	
 def matrix(img):
+	"""
+	Retorna els pixels d'una imatge
+	>>> matrix(("1", [[255, 255], [255, 255], [255, 255]]))
+	[[255, 255], [255, 255], [255, 255]]
+	>>> matrix(("L", [[255, 255, 255], [255, 255, 255], [255, 255, 255]]))
+	[[255, 255, 255], [255, 255, 255], [255, 255, 255]]
+	"""
 	return img[1]
 	
 def subimg(img, ow, oh, w, h):
@@ -72,3 +111,4 @@ def img(m, model='DISCOVER'):
 				return ("L", m)
 			else:
 				return ("1", m)
+
