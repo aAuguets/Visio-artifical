@@ -14,33 +14,37 @@ def transpose(img):
 
 	for row in img:
 		i = 0
+		#transposed_img[i] = [column for i, column in enumerate(row)]
 		for column in row:
 			transposed_img[i] += [column]
 			i += 1
 
 	return transposed_img
 
-def getFirstRowOfColor(color, img):
+def getPositionOfLastRowOfColor(color, img):
 	"""
-	Retorna la posició de la última columna de la imatge que és tota blanca abans de trobar una negra (o arribar al final)
+	Retorna la posició de la última fila de la imatge que és tota del color "color" abans de trobar una d'un altre color (o arribar al final)
 	"""
-	i, position = 0, -1
-	for this in img:
-		for pixel in this:
+	position = 0
+	for row in img:
+		for pixel in row:
 			if pixel == color:
-				position = i + 1
-				break
-		i += 1
+				return position - 1
+		position += 1
 	return position
 
-def getFirstColumnOfColor(color, img):
-	return getFirstRowOfColor(color, transpose(img))
+def getPositionOfLastColumnOfColor(color, img):
+	"""
+	Retorna la posició de la última columna de la imatge que és tota del color "color" abans de trobar una d'un altre color (o arribar al final)
+	"""
+	return getPositionOfLastRowOfColor(color, transpose(img))
 
 def split_digit(img):
 	"""
 	Aquesta funció rebrà una imatge img en blanc i negre retallada verticalment i retorna una tupla (D,R) en la que D és una
 	imatge amb el dígit de més a l’esquerra i R és la resta de la imatge. La imatge corresponent al dígit extret D es retorna
 	convenientment retallada en la direcció horitzontal. La resta R esdevé una imatge nul.la quan s’han extret tots els dígits.
+	###>>> split_digit([[255,255,255, 0],[255,255,255, 255]])
 	"""
 	debug("La última columna tota blanca està a la pos: " + str(end_white))
 	# Si no s'ha trobat cap columna vertical "blanca"...
@@ -57,6 +61,6 @@ def split_digit(img):
 		i += 1
 	return (img_char, img_restant)
 
-split_digit([[255,255,255, 0],[255,255,255, 255]])
-#print [[255,255,255, 0],[255,255,255, 255]]
+
+print getPositionOfLastRowOfColor(0, [[255,255,255, 255],[255,255,255, 255],[255,255,255, 255],[0,255,255, 255]])
 #print transpose([[255,255,255, 0],[255,255,255, 255]])
