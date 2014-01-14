@@ -25,11 +25,10 @@ def transpose(img):
 def image_slice_width(image, f, to):
 	"""
 	Retorna la imatge entre la fila de la posició "f" fins la posició "to" (exclosa)
+	>>> image_slice_width([[0,0,0], [0,0,0], [255,255,255]], 1,2)
+	[[0], [0], [255]]
 	"""
-	sliced_image = []
-	for row in image:
-		sliced_image += row[f:to]
-	return sliced_image
+	return [row[f:to] for row in image]
 
 def getPositionOfFirstRowOfColor(color, img):
 	"""
@@ -67,7 +66,7 @@ def getPositionOfFirstRowOfColorDiff(color, img):
 	"""
 	Retorna la posició de la primera fila de la imatge que és tota d'un color diferent de "color"
 	>>> getPositionOfFirstRowOfColorDiff(0, [[255,255,255, 255],[255,255,255, 255],[0,255,255, 255],[0,0,0,0]])
-	1
+	3
 	"""
 	position = 0
 	for row in img:
@@ -111,3 +110,5 @@ def split_digit(img):
 			img_char += [row[:end_white]]
 		i += 1
 	return (img_char, img_restant)
+
+print getPositionOfFirstRowOfColorDiff(0, [[255,255,255, 255],[255,255,255, 255],[0,255,255, 255],[0,0,0,0]])
