@@ -38,14 +38,17 @@ def luminance_img(img):
 
 def histogram(i):
 	histograma = 256*[0]
-	img = i[1]
-	for fila in img:
+	for fila in range(i[0]):
 		print fila
 		for pixel in fila:
 			histograma[pixel] += 1
 	return histograma
 
 def get_threshold(histograma, total):
+	"""
+	>>> get_threshold([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2], 5)
+	170
+	"""
 	suma = 0
 	for i in range(1, 256):
 		suma += i*histograma[i]
@@ -66,13 +69,11 @@ def get_threshold(histograma, total):
 			break
 		sumB += i * histograma[i]
 		mB = sumB / wB
-		mF = (sum - sumB) / wF
+		mF = (suma - sumB) / wF
 		between = wB * wF * (mB - mF)**2
 		if between > maxim:
 			maxim = between
 			threshold = i
-	print wB/51.
-	print mB/51., wF/51., mF/51.
 	return threshold
 
 def to255(hist):
@@ -80,6 +81,3 @@ def to255(hist):
 	for i in range(6):
 		n_hist[i*51]=hist[i]
 	return n_hist
-
-#print "histo", to255([8,7,2,6,9,4])
-#print get_threshold(to255([8,7,2,6,9,4]), 36)
