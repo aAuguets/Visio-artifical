@@ -30,13 +30,22 @@ def transpose(img):
 
 	return transposed_img
 
-def image_slice_width(image, f, to):
+def image_slice_vertical(image, f, to):
+	"""
+	Retorna la imatge entre la columna de la posició "f" fins la posició "to" (exclosa)
+	>>> image_slice_width([[0,0,0], [0,0,0], [255,255,255]], 1,2)
+	[[0], [0], [255]]
+	"""
+	return [row[f:to] for row in image]
+
+def image_slice_horizontal(image, f, to):
 	"""
 	Retorna la imatge entre la fila de la posició "f" fins la posició "to" (exclosa)
 	>>> image_slice_width([[0,0,0], [0,0,0], [255,255,255]], 1,2)
 	[[0], [0], [255]]
 	"""
-	return [row[f:to] for row in image]
+	return transpose([row[f:to] for row in transpose(image)])
+
 
 def getPositionOfFirstRowOfColor(color, img):
 	"""
@@ -70,7 +79,7 @@ def getPositionOfFirstColumnOfColor(color, img):
 	"""
 	return getPositionOfFirstRowOfColor(color, transpose(img))
 
-def getPositionOfFirstRowOfColorDiff(color, img):
+def getPositionOfFirstRowOfColorDiff(color, img, exhaustive=False):
 	"""
 	Retorna la posició de la primera fila de la imatge on algun dels valors es diferent de "color"
 	>>> getPositionOfFirstRowOfColorDiff(0, [[0,0,0,0], [255,255,255,255],[255,255,255,255],[0,255,255, 255],[0,0,0,0]])
@@ -80,23 +89,26 @@ def getPositionOfFirstRowOfColorDiff(color, img):
 	"""
 	position = 0
 	for row in img:
-		all_the_same = False
+		all_the_same = True
 		for pixel in row:
 			if pixel != color:
-				all_the_same = True
-				break
-		if all_the_same:
-			return position 
+				if exhaustive:
+					all_the_same *= True
+				else:
+					all_the_same = False
+					break
+		if not all_the_same:
+			return position
 		position += 1
 	return -1
 
-def getPositionOfFirstColumnOfColorDiff(color, img):
+def getPositionOfFirstColumnOfColorDiff(color, img, exhaustive=False):
 	"""
 	Retorna la posició de la primera columna de la imatge on algun dels valors es diferent de "color"
 	>>> getPositionOfFirstColumnOfColorDiff(0, [[0,0,255,0], [255,255,255,255],[255,255,255,255],[0,255,255, 255],[0,0,255,0]])
 	2
 	"""
-	return getPositionOfFirstRowOfColorDiff(color, transpose(img))
+	return getPositionOfFirstRowOfColorDiff(color, transpose(img), exhaustive)
 
 def split_digit(img):
 	"""
@@ -120,4 +132,6 @@ def split_digit(img):
 	# Es retorna una tupla (img_char, img_restant)
 	return (img_char, vtrim(img_restant))
 
-print getPositionOfFirstRowOfColorDiff(0, [[0,0,0,0], [0,255,255,255],[255,255,255,255],[0,255,255, 255],[0,0,0,0]])
+#print getPositionOfFirstRowOfColorDiff(0, [[0,0,0,0], [0,255,255,255],[255,255,255,255],[0,255,255, 255],[0,0,0,0]])
+#print mirror_effect([[255,255,255, 0],[0,255,255, 255]])
+#print getPositionOfFirstRowOfColorDiff(0, [[0,0,0],[0,0,0]])
