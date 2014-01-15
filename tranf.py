@@ -8,6 +8,7 @@ from img import *
 #from imgio import *
 import math, split
 
+# Les funcions htrim() i vtrim() han estat implementades a "split.py"
 
 def scale(src, h):
 	"""
@@ -40,37 +41,3 @@ def scale(src, h):
 		imatge_final+=[nova_imatge]
 		nova_imatge=[]	
 	print "Resultat: ", imatge_final
-
-def vtrim(img):
-	"""
-	Retalla tot el color blanc que hi ha a l'esquerra i a la dreta de la imatge abans de trobar-se un caràcter
-	>>> vtrim([[255,255,0],[255,0,0]])
-	[[255, 0], [0, 0]]
-	>>> vtrim([[255,255,0,255],[255,255,0,255], [0, 255, 0,255]])
-	[[255,255,0],[255,255,0], [0, 255, 0]]
-	"""
-	position = split.getPositionOfFirstColumnOfColorDiff(255, img)
-	img = split.image_slice_vertical(img, position+1, len(img[0]))
-	img = split.mirror_effect(img)
-	position = split.getPositionOfFirstColumnOfColorDiff(0, img, True)
-
-	if position == -1:
-		position = len(img[0])
-	img = split.image_slice_vertical(img, 0, position)
-	return split.mirror_effect(img)
-
-def htrim(img):
-	"""
-	Retalla tot el color blanc que hi ha a dalt i abaix de la imatge abans de trobar-se un caràcter
-	>>> htrim([[255,255,255],[255,0,0]])
-	[[255, 0, 0]]
-	>>> htrim([[255,255,255],[255,255,255],[255,255,255],[255,0,0], [255,255,255], [255,255,255]])
-	[[255, 0, 0]]
-	"""
-	position = split.getPositionOfFirstRowOfColorDiff(255, img)
-	img = split.image_slice_horizontal(img, position, len(img[0]))
-	img = img[::-1]
-	position = split.getPositionOfFirstRowOfColorDiff(255, img)
-	if position == -1:
-		position = len(img[0])
-	return split.image_slice_horizontal(img[::-1], 0, position)
