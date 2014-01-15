@@ -31,12 +31,17 @@ def get_w(im):
 	"""
 	Donada imatge retorna l'amplada
 	"""
-	return len(im[1][0])
+	if len(im[1]) > 0:
+		return len(im[1][0])
+	else:
+		return 0
+
 def get_h(im):
 	"""
 	Donada imatge retorna l'alcada
 	"""
 	return len(im[1])
+	
 def white_rgb(w, h):
 	"""
 	Retorna image en format RGB amb tamany w, h de color blanc

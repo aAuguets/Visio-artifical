@@ -15,8 +15,7 @@ def read_rgb(nomf):
     pix = image.load()
     X, Y = image.size[0], image.size[1]
     data = [[pix[x,y] for x in range(X)] for y in range(Y)]    
-    #return img.img(data, 'RGB')
-    return data
+    return img(data, 'RGB')
 
 
 def read_bn(nomf):
@@ -43,9 +42,10 @@ def save(img,nomf):
     """
     Donada una imatge i un nom de fitxer, crea el fitxer imatge a
     partir de la matriu.
-    """
-    image = Image.new(format(i),(get_w(i),get_h(i)))
-    image.putdata([pixel for F in matrix(i) for pixel in F])
+   
+ """
+    image = Image.new(format(img),(get_w(img),get_h(img)))
+    image.putdata([pixel for F in matrix(img) for pixel in F])
     image.save(nomf)
 
 #showl=("RGB", [[(0, 0, 0), (255, 255, 255), (255, 0, 0)], [(255, 255, 255), (0, 255, 0), (255, 255, 255)], [(0, 0, 255), (255, 255, 255), (255, 255, 255)]])

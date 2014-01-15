@@ -20,6 +20,8 @@ def transpose(img):
 	>>> transpose([[255,255,255, 255],[255,255,255, 255],[255,255,255, 255],[0,255,255, 255]])
 	[[255,255,255,0],[255,255,255,255],[255,255,255,255],[255,255,255,255]]
 	"""
+	if len(img) == 0:
+		return [[]]
 	# Crea tantes files a "transposed_img" com columnes hi ha a "img":
 	transposed_img = [[] for x in range(len(img[0]))]
 
@@ -118,19 +120,23 @@ def vtrim(img):
 	[[255, 0], [0, 0]]
 	>>> vtrim([[255,255,0,255],[255,255,0,255], [0, 255, 0,255]])
 	[[255,255,0],[255,255,0], [0, 255, 0]]
+	>>> vtrim([[255, 255, 0, 255]])
+	[[0]]
 	"""
+	debug("vtrim: " + str(img))
 	position = getPositionOfFirstColumnOfColorDiff(255, img)
 	debug("Position 1: " + str(position))
-	img = image_slice_vertical(img, position+1, len(img[0]))
+	img = image_slice_vertical(img, position, len(img[0]))
+	#print "first slice", img
 	img = mirror_effect(img)
-	print "Mirroed", img
-	position = getPositionOfFirstColumnOfColorDiff(0, img, True)
+	#print "Mirroed", img
+	position = getPositionOfFirstColumnOfColorDiff(255, img)
 	debug("Position 2: " + str(position))
 	if position == -1:
 		position = len(img[0])
-	debug("Slice " + ":" + position)
-	img = image_slice_vertical(img, 0, position)
-	return mirror_effect(img)
+	debug("Slice " + "0:" + str(position))
+	#print "slice_image:", mirror_effect(img)
+	return image_slice_vertical(mirror_effect(img), 0, position)
 
 def htrim(img):
 	"""
@@ -140,29 +146,43 @@ def htrim(img):
 	>>> htrim([[255,255,255],[255,255,255],[255,255,255],[255,0,0], [255,255,255], [255,255,255]])
 	[[255, 0, 0]]
 	"""
+	debug("htrim: " + str(img))
 	position = getPositionOfFirstRowOfColorDiff(255, img)
+	debug("Position 1: " + str(position))
 	img = image_slice_horizontal(img, position, len(img[0]))
+	debug("end_slice: " + str(img))
 	img = img[::-1]
-	position = getPositionOfFirstRowOfColorDiff(255, img)
+	position = getPositionOfFirstRowOfColorDiff(255, img, True)
+	debug("Position 2: " + str(position))
 	if position == -1:
 		position = len(img[0])
-	return image_slice_horizontal(img[::-1], 0, position)
+	print "Mirror effect", img[::-1]
+	img = image_slice_horizontal(img[::-1], 0, position)
+	print "htim_rinal", img
+	return img
 
 def split_digit(img):
 	"""
 	Aquesta funció rebrà una imatge img en blanc i negre retallada verticalment i retorna una tupla (D,R) en la que D és una
 	imatge amb el dígit de més a l’esquerra i R és la resta de la imatge. La imatge corresponent al dígit extret D es retorna
 	convenientment retallada en la direcció horitzontal. La resta R esdevé una imatge nul.la quan s’han extret tots els dígits.
-	>>> split_digit([255,255,255,255], [255,255,0,255], [255,255,255,255])
+	>>> split_digit([[255,255,255,255], [255,255,0,255], [255,255,255,255], [255,255,0,255], [255,255,255,255]])
+	([[0], [255], [0]], [])
 	"""
 	# S'escapça la imatge
-	print "htrim", htrim(img)
 	img = htrim(img)
-
-	print "vtrim", vtrim(img)
+	print "htrim - ", img
+	img = vtrim(img)
+	print "vtrim - ", img
+	#print "htrim", img
+	#print "vtrim", vtrim(img)
 
 	# S'obté la posició de la primera columna on tot és blanc (aquesta serà la cordenada on acaba el primer caràcter)
 	pos_end_first_char = getPositionOfFirstColumnOfColor(WHITE, img)
+	print "pos_end_first_char", pos_end_first_char
+
+	if pos_end_first_char == -1: # Només hi ha un caràcter
+		return (img, [])
 
 	# Es fa un slice del primer caràcter, des de 0->pos_end_first_char
 	img_char = image_slice_vertical(img, 0, pos_end_first_char)
@@ -171,8 +191,4 @@ def split_digit(img):
 	img_restant = image_slice_vertical(img, pos_end_first_char, len(img) - 1)
 
 	# Es retorna una tupla (img_char, img_restant)
-	return (img_char, vtrim(img_restant))
-
-#print split_digit([[255,255,255,255], [255,255,0,255], [255,255,255,255]])
-
-print vtrim([[255, 255, 0, 255]])
+	return (img_char, img_restant) # vtrim(

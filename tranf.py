@@ -22,10 +22,14 @@ def scale(src, h):
 	"""
 	#print "H: ",get_h(src),"  ", "W: ",get_w(src), " ","h: ",h
 
+	print "src", type(src)
+	print src[1]
+
+
 	# Factor d'escalat
 	Fh = get_h(src)/float(h)
 
-	# Nova amplada per l'escalada
+	# Nova amplada per l'escalada	
 	new_w=get_w(src)/float(Fh)
 	print "nova mida:  Alçada",h," Amplada: ",int(new_w),"No int: ",new_w
 	print "Factor de converció: ",Fh
@@ -40,4 +44,4 @@ def scale(src, h):
 			#print "nova img: ",nova_imatge
 		imatge_final+=[nova_imatge]
 		nova_imatge=[]	
-	print "Resultat: ", imatge_final
+	return imatge_final
