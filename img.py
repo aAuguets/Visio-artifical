@@ -1,8 +1,6 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# DEV: Felipe Arango
-
 def null():
 	"""
 	Retorna imatge nul·la
