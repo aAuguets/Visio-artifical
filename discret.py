@@ -4,7 +4,7 @@
 # AUTOR: Adrià Auguets
 
 def rgb_to_bn(img):
-	"""Retorna una imatge de la mateixa dimensio ́ de img que cont ́e la mateixa escena per`o convertida a blanc i negre."""
+	"""Retorna una imatge de la mateixa dimensió de img que cont́e la mateixa escena però convertida a blanc i negre."""
 
 def rgb_to_lum(pixel):
 	"""
