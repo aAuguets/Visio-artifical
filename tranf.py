@@ -22,8 +22,8 @@ def scale(src, h):
 	"""
 	#print "H: ",get_h(src),"  ", "W: ",get_w(src), " ","h: ",h
 
-	print "src", type(src)
-	print src[1]
+	#print "src", type(src)
+	#print src[1]
 
 
 	# Factor d'escalat

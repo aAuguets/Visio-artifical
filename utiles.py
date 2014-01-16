@@ -22,4 +22,4 @@ def show_console(img):
 			else:
 				val = "▓"
 			new_line += [val]
-		print "".join(new_line)
+		#print "".join(new_line)

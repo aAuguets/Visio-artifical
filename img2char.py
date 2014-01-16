@@ -6,8 +6,7 @@ from discret import *
 #from transf import *
 from match import *
 from img import *
-import sys,imgio
-
+import sys, imgio
 
 if len(sys.argv) >= 2:
 	matricula = sys.argv[1]
@@ -17,11 +16,15 @@ else:
 
 #1-Obtenir la llista de patrons que seran imatges en format blanc i negre.
 
-patterns = load_patterns("images/patro")
+patterns = load_patterns("images/patro_")
 
 #2-Llegir la imatge de la matricula.modul imgio
 img = rgb_to_bn(imgio.read_rgb(matricula))
-imgio.show(img)
+#imgio.show(img)
+img = htrim(img[1])
+#imgio.show(("1", img))
+img = vtrim(img)
+#imgio.show(("1", img))
 
 #3-Convertir la matricula en blanc i negre. modul discret
 
@@ -32,15 +35,14 @@ imgio.show(img)
 
 #6-Extreure els digits de la matricula i simultaniament, determinar a quina xifra representen mitjançant el matching. Modul split
 #print "Imatge:", img
+
 digits = []
-numImg = (img[1], img[1])
+numImg = (img, img)
 while numImg[1] != []:
-	numImg = split_digit(numImg[0])
-	imgio.show(("1", numImg[1]))
+	numImg = split_digit(numImg[1])
+	#imgio.show(("1", numImg[0]))
 	match(numImg[0], patterns)
 	digits += [numImg[0]]
-	if numImg[1] == []:
-		break
 
 #7-Mostrar l'enter que correspon a la matricula.
 #print "Match", match(img, patterns)

@@ -39,6 +39,8 @@ def image_slice_vertical(image, f, to):
 	>>> image_slice_vertical([[0,0,0], [0,0,0], [255,255,255]], 1,2)
 	[[0], [0], [255]]
 	"""
+	if not isinstance(image[0], list):
+		image = [image]
 	return [row[f:to] for row in image]
 
 def image_slice_horizontal(image, f, to):
@@ -123,21 +125,25 @@ def vtrim(img):
 	>>> vtrim([[255, 255, 0, 255]])
 	[[0]]
 	"""
-	debug("vtrim: " + str(img))
+	#debug("vtrim: " + str(img))
 	position = getPositionOfFirstColumnOfColorDiff(255, img)
-	debug("Position 1: " + str(position))
+	#debug("Position 1: " + str(position))
 	img = image_slice_vertical(img, position, len(img[0]))
 	#print "first slice", img
 	img = mirror_effect(img)
 	#imgio.show(("1", img))
 	#print "Mirroed", img
 	position = getPositionOfFirstColumnOfColorDiff(255, img)
-	debug("Position 2: " + str(position))
+	#debug("Position 2: " + str(position))
 	if position == -1:
 		position = len(img[0])
-	debug("Slice " + "0:" + str(position))
-	#print "slice_image:", mirror_effect(img)
-	return mirror_effect(image_slice_vertical(img, position, len(img)))
+	#debug("Slice " + "0:" + str(position))
+	#print "slice_[[:", mirror_effect(img)
+	img = image_slice_vertical(img, position, len(img[0]))
+	#imgio.show(("1", img))
+	img = mirror_effect(img)
+	#imgio.show(("1", img))
+	return img
 
 def htrim(img):
 	"""
@@ -149,15 +155,15 @@ def htrim(img):
 	"""
 	#debug("htrim: " + str(img))
 	position = getPositionOfFirstRowOfColorDiff(255, img)
-	debug("Position 1: " + str(position))
+	#debug("Position 1: " + str(position))
 	img = image_slice_horizontal(img, position, len(img))[::-1]
 	#imgio.show(("1", img))
 	position = getPositionOfFirstRowOfColorDiff(255, img)#, True)
-	debug("Position 2: " + str(position))
+	#debug("Position 2: " + str(position))
 	if position == -1:
 		position = len(img)
 	#print "Mirror effect", img[::-1]
-	print "slice", 0, ":", position
+	#print "slice", 0, ":", position
 	img = image_slice_horizontal(img, position, len(img))[::-1]
 	#imgio.show(("1", img))
 	#print "htim_rinal", img
@@ -185,9 +191,9 @@ def split_digit(img):
 
 	# Es fa un slice del primer caràcter, des de 0->pos_end_first_char
 	img_char = image_slice_vertical(img, 0, pos_end_first_char)
-
+	
 	# Es fa un slice de la resta de caràcters des de pos_end_first_char->final
-	img_restant = image_slice_vertical(img, pos_end_first_char, len(img) - 1)
-
+	img_restant = image_slice_vertical(img, pos_end_first_char, len(img[0]))
+	
 	# Es retorna una tupla (img_char, img_restant)
 	return (img_char, img_restant) # vtrim(

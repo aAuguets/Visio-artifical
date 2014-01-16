@@ -17,7 +17,7 @@ def rgb_to_bn(img):
 	#for a in histogram(luminance_img(img)):
 	#	b+=a
 	total = get_w(img) * get_h(img)
-	print "total: ",total
+	#print "total: ",total
 	#print "b:",b
 	#lum= luminance_img(img)
 	#print "luminance ", lum
@@ -27,12 +27,12 @@ def rgb_to_bn(img):
 	#print "total", get_w(img)*get_h(img)
 	
 	threshold = get_threshold(histogram(luminance_img(img)), total)
-	print "threshold: ", threshold
-	print "hist: ", histogram(luminance_img(img))
+	#print "threshold: ", threshold
+	#print "hist: ", histogram(luminance_img(img))
 	lum = luminance_img(img)
 	#show(lum)
 	#print "lum: ", lum
-	print "Thre: ",threshold
+	#print "Thre: ",threshold
 	bw_image = []
 	for rows in lum[1]:
 		f = []
