@@ -47,6 +47,3 @@ def save(img,nomf):
     image = Image.new(format(img),(get_w(img),get_h(img)))
     image.putdata([pixel for F in matrix(img) for pixel in F])
     image.save(nomf)
-
-#showl=("RGB", [[(0, 0, 0), (255, 255, 255), (255, 0, 0)], [(255, 255, 255), (0, 255, 0), (255, 255, 255)], [(0, 0, 255), (255, 255, 255), (255, 255, 255)]])
-#show(showl)

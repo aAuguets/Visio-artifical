@@ -31,8 +31,8 @@ def scale(src, h):
 
 	# Nova amplada per l'escalada	
 	new_w=get_w(src)/float(Fh)
-	print "nova mida:  Alçada",h," Amplada: ",int(new_w),"No int: ",new_w
-	print "Factor de converció: ",Fh
+	#print "nova mida:  Alçada",h," Amplada: ",int(new_w),"No int: ",new_w
+	#print "Factor de converció: ",Fh
 	
 	imatge_final=[]
 	src_imatge=src[1]		#retorna només l'imatge src (senre el "RGB")

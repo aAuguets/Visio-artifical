@@ -24,12 +24,21 @@ def is_null(img):
 def format(im):
 	"""
 	Donada imatge retorna format: RGB, 1 (blanc i negre), L (escala de grisos)
+	>>> format((’1’, [[255, 255], [255, 255], [255, 255]]))
+	'1'
+	>>> format((’L’, [[255, 255, 255], [255, 255, 255], [255, 255, 255]]))
+	'L'
 	"""
 	return im[0]
 
 def get_w(im):
 	"""
 	Donada imatge retorna l'amplada
+	Returns the image width
+	>>> get_w(('1', [[255, 255], [255, 255], [255, 255]]))
+	2
+	>>> get_w(('L', [[255, 255, 255, 255, 255], [255, 255, 255, 255, 255]]))
+	5
 	"""
 	if len(im[1]) > 0:
 		return len(im[1][0])
@@ -39,12 +48,20 @@ def get_w(im):
 def get_h(im):
 	"""
 	Donada imatge retorna l'alcada
+	Returns the image height
+	>>> get h(('1', [[255, 255], [255, 255], [255, 255]]))
+	3
+	>>> get h(('L', [[255, 255, 255], [255, 255, 255], [255, 255, 255]]))
+	3
 	"""
 	return len(im[1])
 	
 def white_rgb(w, h):
 	"""
 	Retorna image en format RGB amb tamany w, h de color blanc
+	>>> white rgb(3,3)
+	('RGB', [[(255, 255, 255), (255, 255, 255), (255, 255, 255)], [(255, 255, 255), (255, 255, 255),
+	(255, 255, 255)], [(255, 255, 255), (255, 255, 255), (255, 255, 255)]])
 	"""
 	fila = [(255, 255, 255) for i in range(w)]
 	img = [fila for i in range(h)]
@@ -101,14 +118,14 @@ def subimg(img, ow, oh, w, h):
 def img(m, model='DISCOVER'):
 	"""
 	Returns the image representation format (T,m)
-	>>> img([[255,255,0],[255,128,255],[191,255,255]],’DISCOVER’)
-	(’L’, [[255, 255, 0], [255, 128, 255], [191, 255, 255]])
-	>>> img([[255,255,0],[255,0,255],[0,255,255]],’DISCOVER’)
-	(’1’, [[255, 255, 0], [255, 0, 255], [0, 255, 255]])
+	>>> img([[255,255,0],[255,128,255],[191,255,255]],'DISCOVER')
+	('L', [[255, 255, 0], [255, 128, 255], [191, 255, 255]])
+	>>> img([[255,255,0],[255,0,255],[0,255,255]],'DISCOVER')
+	('1', [[255, 255, 0], [255, 0, 255], [0, 255, 255]])
 	"""
-	if isinstance(m[0][0], tuple): # RGB
+	if isinstance(m[0][0], tuple): 	# RGB
 			return ("RGB", m)
-	for a in m: #NO RGB
+	for a in m: 					#NO RGB
 		for b in a:
 			if b != 255 and b != 0: 
 				return ("L", m)

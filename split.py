@@ -188,7 +188,7 @@ def split_digit(img):
 
 	# S'obté la posició de la primera columna on tot és blanc (aquesta serà la cordenada on acaba el primer caràcter)
 	pos_end_first_char = getPositionOfFirstColumnOfColor(WHITE, img)
-	print "pos_end_first_char", pos_end_first_char
+	#print "pos_end_first_char", pos_end_first_char
 
 	if pos_end_first_char == -1: # Només hi ha un caràcter
 		return (img, [])

@@ -1,9 +1,9 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
 
-# AUTOR: Jordi Masip
+# DEV: Jordi Masip
 
-DEBUG = True
+DEBUG = False
 
 BLACK = 0
 WHITE = 255

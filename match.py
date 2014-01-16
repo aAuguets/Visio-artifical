@@ -12,8 +12,8 @@ def compare_image(img, pttrn):
 	Retorna un real entre 0-1 amb el nivell de coincidència de la imatge amb el patró
 	"""
 	total_pixels, coincidence = len(img[0]) * len(img), 0
-	print "total_pixels", total_pixels
-	print "img dim:", len(img[0]), "x" ,len(img)
+	#print "total_pixels", total_pixels
+	#print "img dim:", len(img[0]), "x" ,len(img)
 	#print "Ptnr dim:", get_w(("1",pttrn)), "x",get_h(("1",pttrn))
 	
 	for i in range(len(img)):
@@ -38,16 +38,13 @@ def match(img, patlst):
 	# Mida de la imatge
 	img_size = (len(img[0]), len(img))
 
-	print "img_size", img_size
+	#print "img_size", img_size
 
 	# ((int) valor de la imatge, (float) coincidence)
 	best_match = (-1, 0.0)
 
-	# Es compara cada pattern:
-	print "n. patrons: ", len(patlst)
-
 	for i, pattern in enumerate(patlst):
-		print "-------------------------------------------------------------\nPattern n:", i
+		#print "-------------------------------------------------------------\nPattern n:", i
 		#imgio.show(("1", pattern))
 		pattern = ("1", pattern[1]) # split.vtrim(split.htrim(
 		#print pattern		
@@ -61,18 +58,17 @@ def match(img, patlst):
 		#pattern = split.htrim(split.vtrim(pattern))
 		
 		if img_size[1] >= pattern_size[1]:
-			print "img >= pattern"
+			#print "img >= pattern"
 			img = tranf.scale(("1", img), pattern_size[1])[1]
 			img_size = (get_w(("", img)), get_h(("", img)))
 			
 		else:
-			print "pattern > img"
+			#print "pattern > img"
 			
 			pattern = tranf.scale(pattern, img_size[1])[1]
-			#imgio.show(pattern)
-			
+
 			pattern_size = (get_w(("1", pattern)), get_h(("1", pattern)))
-			print "pattern_size", pattern_size
+			#print "pattern_size", pattern_size
 
 		#print "pattern de los huevos", img[1]
 		#print "pattern de los huevos", pattern[1]
@@ -84,26 +80,32 @@ def match(img, patlst):
 			small_size = pattern_size[0]
 			
 			big_image = img
-			small_image = pattern[1]
+			if isinstance(pattern, tuple):
+				small_image = pattern[1]
+			else:
+				small_image = pattern
+
+			#print "heeey", small_image			
+			#imgio.show(("1", small_image))			
 		else:
 			scroll = pattern_size[0] - img_size[0]
 
 			big_size = pattern_size[0]
 			small_size = img_size[0]
-			
-			big_image = pattern[1]
+			#print "solving..", type(pattern)
+			if isinstance(pattern, tuple):
+				big_image = pattern[1]
+			else:
+				big_image = pattern
 			small_image = img
 
-		print "bs:", big_size, "\nss:", small_size
+		#print "bs:", big_size, "\nss:", small_size
 
-		print "big_img:", type(big_image[0])
-		print "small_img:", type(small_image[0])
+		#print "big_img:", type(big_image[0])
+		#print "small_img:", type(small_image[0])
 
-		#imgio.show(("1", pattern))
-		#imgio.show(("1", img))
-
-		print len(big_image), len(big_image[0])
-		print len(small_image), len(small_image[0])
+		#print len(big_image), len(big_image[0])
+		#print len(small_image), len(small_image[0])
 		#a = raw_input("...")
 
 		debug("Scroll: " + str(scroll))
@@ -113,9 +115,6 @@ def match(img, patlst):
 		last_coincidence = -1
 		
 		for position in range(scroll+1):
-			#imgio.show(("1", split.image_slice_vertical(img, position, img_size[0]+1)))
-			#print "tipus", type(big_image)
-			#print "before v_slice", position, big_size + position
 			croped_img = split.image_slice_vertical(big_image, position, small_size + position)
 			
 			#imgio.show(("1", big_image))
@@ -125,12 +124,12 @@ def match(img, patlst):
 			#	imgio.show(("1", croped_img))
 			#	sys.exit(0)
 
-			print "cropped_img", len(croped_img[0]), "x", len(croped_img)
+			#print "cropped_img", len(croped_img[0]), "x", len(croped_img)
 			#print small_image
 			#print "cropped_type", type(croped_img)
 			#print "small_type", type(small_image)
 			coincidence = compare_image(croped_img, small_image)
-			print i, ":", coincidence
+			#print i, ":", coincidence
 			#coincidences += [(coincidence, i)]
 			#debug("Coincidence: " + str(coincidence))
 			if coincidence > last_coincidence:
@@ -140,4 +139,4 @@ def match(img, patlst):
 			best_match = (i, last_coincidence)
 
 	debug("El best_match es " + str(best_match))
-	return best_match[0] if best_match[1] >= 0.5 else -1
+	return best_match[0] if best_match[1] >= 0.6 else -1

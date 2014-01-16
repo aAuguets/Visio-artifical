@@ -3,51 +3,45 @@
 
 from split import *
 from discret import *
-#from transf import *
 from match import *
 from img import *
 import sys, imgio
+
+# Per processar la matricula cal:
 
 if len(sys.argv) >= 2:
 	matricula = sys.argv[1]
 else:
 	print "No està especificat el nom de la imatge"
-#Per processar la matricula cal:
+	sys.exit(0)
 
-#1-Obtenir la llista de patrons que seran imatges en format blanc i negre.
-
+# 1-Obtenir la llista de patrons que seran imatges en format blanc i negre.
 patterns = load_patterns("images/patro_")
 
-#2-Llegir la imatge de la matricula.modul imgio
+# 2-Llegir la imatge de la matricula.modul imgio
+# 3-Convertir la matricula en blanc i negre. modul discret
 img = rgb_to_bn(imgio.read_rgb(matricula))
-#imgio.show(img)
-img = htrim(img[1])
-#imgio.show(("1", img))
-img = vtrim(img)
-#imgio.show(("1", img))
+img = vtrim(htrim(img[1]))
 
-#3-Convertir la matricula en blanc i negre. modul discret
-
-#4-Ajustar l'alçada de la matricula retallant les franjes blanques que puguin existir.  tranf.py
-#img = htrim(img)
-#img = vtrim(img)
-#5-Escalar la matricula a fi i efecte que l'alçada coincideixi amb la dels patrons.+ modul transf
-
-#6-Extreure els digits de la matricula i simultaniament, determinar a quina xifra representen mitjançant el matching. Modul split
-#print "Imatge:", img
-
-digits = []
+print "Detectant els digits..."
+img_digits = []
 numImg = (img, img)
 while True:
-	print "=============================================\n=========================================="
 	numImg = split_digit(numImg[1])
-	#imgio.show(("1", numImg[0]))
-	digits += [match(numImg[0], patterns)]
+	img_digits += [numImg[0]]
 	if numImg[1] == []:
 		break
 	numImg = ([], numImg[1])
+total_dig = len(img_digits)
+digits = []
+for i, digit in enumerate(img_digits):
+	print "Completat", i / float(total_dig) * 100, "%"
+	digits += [str(match(digit, patterns))]
+	#numImg = split_digit(numImg[1])
+	#digits += [str(match(numImg[0], patterns))]
+	#if numImg[1] == []:
+	#	break
+	#numImg = ([], numImg[1])
 
-print digits
-#7-Mostrar l'enter que correspon a la matricula.
-#print "Match", match(img, patterns)
-
+# 7-Mostrar l'enter que correspon a la matricula.
+print "\nMatricula:", ' '.join(digits)
