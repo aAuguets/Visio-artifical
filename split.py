@@ -4,7 +4,7 @@
 # DEV: Jordi Masip
 
 from utiles import *
-import tranf
+import tranf, imgio
 
 def mirror_effect(img):
 	"""
@@ -129,6 +129,7 @@ def vtrim(img):
 	img = image_slice_vertical(img, position, len(img[0]))
 	#print "first slice", img
 	img = mirror_effect(img)
+	#imgio.show(("1", img))
 	#print "Mirroed", img
 	position = getPositionOfFirstColumnOfColorDiff(255, img)
 	debug("Position 2: " + str(position))
@@ -136,7 +137,7 @@ def vtrim(img):
 		position = len(img[0])
 	debug("Slice " + "0:" + str(position))
 	#print "slice_image:", mirror_effect(img)
-	return image_slice_vertical(mirror_effect(img), 0, position)
+	return mirror_effect(image_slice_vertical(img, position, len(img)))
 
 def htrim(img):
 	"""
@@ -146,19 +147,20 @@ def htrim(img):
 	>>> htrim([[255,255,255],[255,255,255],[255,255,255],[255,0,0], [255,255,255], [255,255,255]])
 	[[255, 0, 0]]
 	"""
-	debug("htrim: " + str(img))
+	#debug("htrim: " + str(img))
 	position = getPositionOfFirstRowOfColorDiff(255, img)
 	debug("Position 1: " + str(position))
-	img = image_slice_horizontal(img, position, len(img[0]))
-	debug("end_slice: " + str(img))
-	img = img[::-1]
-	position = getPositionOfFirstRowOfColorDiff(255, img, True)
+	img = image_slice_horizontal(img, position, len(img))[::-1]
+	#imgio.show(("1", img))
+	position = getPositionOfFirstRowOfColorDiff(255, img)#, True)
 	debug("Position 2: " + str(position))
 	if position == -1:
-		position = len(img[0])
-	print "Mirror effect", img[::-1]
-	img = image_slice_horizontal(img[::-1], 0, position)
-	print "htim_rinal", img
+		position = len(img)
+	#print "Mirror effect", img[::-1]
+	print "slice", 0, ":", position
+	img = image_slice_horizontal(img, position, len(img))[::-1]
+	#imgio.show(("1", img))
+	#print "htim_rinal", img
 	return img
 
 def split_digit(img):
@@ -171,11 +173,8 @@ def split_digit(img):
 	"""
 	# S'escapça la imatge
 	img = htrim(img)
-	print "htrim - ", img
+	#print "htrim - ", img
 	img = vtrim(img)
-	print "vtrim - ", img
-	#print "htrim", img
-	#print "vtrim", vtrim(img)
 
 	# S'obté la posició de la primera columna on tot és blanc (aquesta serà la cordenada on acaba el primer caràcter)
 	pos_end_first_char = getPositionOfFirstColumnOfColor(WHITE, img)

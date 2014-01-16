@@ -20,7 +20,9 @@ else:
 patterns = load_patterns("images/patro")
 
 #2-Llegir la imatge de la matricula.modul imgio
-img = imgio.read_bn(matricula)
+img = rgb_to_bn(imgio.read_rgb(matricula))
+imgio.show(img)
+
 #3-Convertir la matricula en blanc i negre. modul discret
 
 #4-Ajustar l'alçada de la matricula retallant les franjes blanques que puguin existir.  tranf.py
@@ -31,8 +33,10 @@ img = imgio.read_bn(matricula)
 #6-Extreure els digits de la matricula i simultaniament, determinar a quina xifra representen mitjançant el matching. Modul split
 #print "Imatge:", img
 digits = []
-while True:
-	numImg = split_digit(img)
+numImg = (img[1], img[1])
+while numImg[1] != []:
+	numImg = split_digit(numImg[0])
+	imgio.show(("1", numImg[1]))
 	match(numImg[0], patterns)
 	digits += [numImg[0]]
 	if numImg[1] == []:

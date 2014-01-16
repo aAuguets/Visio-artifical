@@ -41,11 +41,12 @@ def match(img, patlst):
 	# Es compara cada pattern:
 	for i, pattern in enumerate(patlst):
 		# S'escala el patró a la mida del caràcter
-		
 		pattern = tranf.scale(pattern, img_size[1])
-		print "type_pattern", type(pattern)
-		#imgio.show(("", pattern))
-		show_console(pattern)
+		
+		pattern = split.htrim(split.vtrim(pattern))
+		
+		#imgio.show(("1", pattern))
+		#show_console(pattern)
 		
 		# Es desa la nova mida
 		pattern_size = (get_w(("", pattern)), get_h(("", pattern)))
