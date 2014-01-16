@@ -49,8 +49,10 @@ def image_slice_horizontal(image, f, to):
 	>>> image_slice_horizontal([[0,0,0], [0,0,0], [255,255,255]], 1,2)
 	[[0], [0], [255]]
 	"""
-	return transpose([row[f:to] for row in transpose(image)])
-
+	#imgio.show(("1", image))
+	a = transpose([row[f:to] for row in transpose(image)])
+	#imgio.show(("1",a))
+	return a
 
 def getPositionOfFirstRowOfColor(color, img):
 	"""
@@ -125,6 +127,7 @@ def vtrim(img):
 	>>> vtrim([[255, 255, 0, 255]])
 	[[0]]
 	"""
+	#imgio.show(("1", img))
 	#debug("vtrim: " + str(img))
 	position = getPositionOfFirstColumnOfColorDiff(255, img)
 	#debug("Position 1: " + str(position))
@@ -153,6 +156,7 @@ def htrim(img):
 	>>> htrim([[255,255,255],[255,255,255],[255,255,255],[255,0,0], [255,255,255], [255,255,255]])
 	[[255, 0, 0]]
 	"""
+	#imgio.show(("1", img))
 	#debug("htrim: " + str(img))
 	position = getPositionOfFirstRowOfColorDiff(255, img)
 	#debug("Position 1: " + str(position))

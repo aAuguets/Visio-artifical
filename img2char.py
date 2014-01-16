@@ -38,12 +38,16 @@ img = vtrim(img)
 
 digits = []
 numImg = (img, img)
-while numImg[1] != []:
+while True:
+	print "=============================================\n=========================================="
 	numImg = split_digit(numImg[1])
 	#imgio.show(("1", numImg[0]))
-	match(numImg[0], patterns)
-	digits += [numImg[0]]
+	digits += [match(numImg[0], patterns)]
+	if numImg[1] == []:
+		break
+	numImg = ([], numImg[1])
 
+print digits
 #7-Mostrar l'enter que correspon a la matricula.
 #print "Match", match(img, patterns)
 

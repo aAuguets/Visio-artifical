@@ -34,14 +34,13 @@ def scale(src, h):
 	print "nova mida:  Alçada",h," Amplada: ",int(new_w),"No int: ",new_w
 	print "Factor de converció: ",Fh
 	
-	nova_imatge=[]
 	imatge_final=[]
 	src_imatge=src[1]		#retorna només l'imatge src (senre el "RGB")
 	for a in range(int(h)):
+		nova_imatge=[]
 		for b in range(int(new_w)):
 			#print (a*Fh+1),"Int: ",math.ceil(a*Fh+1),",",(b*Fh+1),"Int ",math.ceil(b*Fh+1)
 			nova_imatge += (src_imatge[int(math.ceil(a*Fh))][int(math.ceil(b*Fh))],)
 			#print "nova img: ",nova_imatge
 		imatge_final+=[nova_imatge]
-		nova_imatge=[]	
-	return imatge_final
+	return (src[0], imatge_final)
