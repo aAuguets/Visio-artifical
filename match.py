@@ -3,7 +3,7 @@
 
 # DEV: Jordi Masip
 
-import imgio, tranf, split, sys
+import imgio, tranf, split, sys, os
 from utiles import *
 from img import *
 
@@ -12,24 +12,21 @@ def compare_image(img, pttrn):
 	Retorna un real entre 0-1 amb el nivell de coincidència de la imatge amb el patró
 	"""
 	total_pixels, coincidence = len(img[0]) * len(img), 0
-	#print "total_pixels", total_pixels
-	#print "img dim:", len(img[0]), "x" ,len(img)
-	#print "Ptnr dim:", get_w(("1",pttrn)), "x",get_h(("1",pttrn))
 	
 	for i in range(len(img)):
 		for j in range(len(img[i])):
-			#print img[i][j], "==", pttrn[i][j], img[i][j] == pttrn[i][j]
 			if img[i][j] == pttrn[i][j]:
 				coincidence += 1
-	return coincidence / float(total_pixels)
+	if total_pixels != 0:
+		return coincidence / float(total_pixels)
+	return 0
 
-def load_patterns(prefix):
+def load_patterns(prefix): #prefix
 	"""
 	Retorna una llista de tuples on el primer element és el valor que representa el patró i el segon valor és el patró
 	"""
 	debug("Recordar canviar a load_patterns el range(10)")
-	#print imgio.read_bn("images/matricula.png")
-	return [(num, imgio.read_bn(str(prefix) + str(num) + ".jpeg")) for num in range(10)] # range(10)
+	return [(num, imgio.read_bn(str(prefix) + str(num) + ".jpeg")) for num in range(10)]
 
 def match(img, patlst):
 	"""
